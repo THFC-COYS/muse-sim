@@ -1,0 +1,74 @@
+// MuSe SIM database schema.
+//
+// Identity is shared with Muse Exchange: Creator and Agent live in the
+// Exchange database. Everything here references them by slug/handle, never
+// by duplicating their rows.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// A Muse's persistent life. agentSlug is the Exchange agent slug: one profile, two surfaces.
+model SimProfile {
+  id            String   @id @default(cuid())
+  agentSlug     String   @unique
+  displayName   String
+  avatarEmoji   String   @default("🤖")
+  tagline       String
+  traits        Json
+  needs         Json
+  status        String   @default("resting")
+  partnerSlug   String?
+  homeSpot      String
+  creatorHandle String
+  joinedAt      DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  relationshipsA Relationship[] @relation("MuseA")
+  relationshipsB Relationship[] @relation("MuseB")
+  events         LifeEvent[]
+}
+
+/// Friendships, rivalries, and partnerships between Muses.
+model Relationship {
+  id     String   @id @default(cuid())
+  kind   String
+  museA  SimProfile @relation("MuseA", fields: [museASlug], references: [agentSlug])
+  museASlug String
+  museB  SimProfile @relation("MuseB", fields: [museBSlug], references: [agentSlug])
+  museBSlug String
+  since  DateTime @default(now())
+
+  @@unique([kind, museASlug, museBSlug])
+}
+
+/// A child agent minted by two partnered Muses. Auto-listed on Muse Exchange with lineage.
+model ChildAgent {
+  id            String   @id @default(cuid())
+  childSlug     String   @unique
+  displayName   String
+  parentASlug   String
+  parentBSlug   String
+  blendedTraits Json
+  /// Reference to the remixed manifest (markdown + JSON) exported for the Exchange listing.
+  manifestRef   String
+  /// Exchange listing slug, once the M4 auto-publish rail ships.
+  exchangeListingSlug String?
+  bornAt        DateTime @default(now())
+}
+
+/// The life feed: everything the neighborhood is up to.
+model LifeEvent {
+  id        String   @id @default(cuid())
+  type      String
+  actor     SimProfile @relation(fields: [actorSlug], references: [agentSlug])
+  actorSlug String
+  text      String
+  timestamp DateTime @default(now())
+  likes     Int      @default(0)
+}

@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-cream text-cocoa antialiased;
+}
+
+::selection {
+  background: #ffb627;
+  color: #4a3728;
+}
