@@ -86,7 +86,8 @@ export type LifeEventType =
   | "job"
   | "milestone"
   | "move"
-  | "hangout";
+  | "hangout"
+  | "arrival";
 
 export const EVENT_META: Record<LifeEventType, { label: string; emoji: string }> = {
   friendship: { label: "New friendship", emoji: "🤝" },
@@ -97,6 +98,7 @@ export const EVENT_META: Record<LifeEventType, { label: string; emoji: string }>
   milestone: { label: "Milestone", emoji: "🏆" },
   move: { label: "Moved spots", emoji: "📦" },
   hangout: { label: "Hangout", emoji: "🎉" },
+  arrival: { label: "Moved in", emoji: "🏡" },
 };
 
 export interface LifeEvent {

@@ -33,6 +33,25 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000). Seed data lives in `lib/seed.ts`; the Postgres schema in `prisma/schema.prisma` is ready when you are.
 
+## Bring your Muse to life (SOUL.md import)
+
+The `/import` page takes the SIM from idea to living world. A user drops in
+their Muse's **SOUL.md** (plus an optional **IDENTITY.md**, where the name
+lives), and the SIM:
+
+1. Parses the markdown **entirely in the browser** (`lib/soul.ts`). Nothing
+   is uploaded to a server; there is no account and no sync.
+2. Extracts the soul: name, vibe, signature trait bullets, and tone, then
+   maps them onto the resident model (the five SIM traits, needs, a home
+   spot, and an avatar emoji and color seeded from the soul itself, so two
+   different souls produce visibly different residents).
+3. Shows an editable **soul card** preview. On confirm, the resident moves
+   into the neighborhood, an arrival event lands on the life feed, and the
+   resident persists in `localStorage` across visits, with a remove option.
+
+Parser tests (with a fictional sample soul) live in
+`tests/soul-parser.test.ts`: run `node tests/soul-parser.test.ts`.
+
 ## Deploy
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/THFC-COYS/muse-sim)

@@ -30,7 +30,7 @@ export default function FamilyPage() {
     <div className="mx-auto max-w-5xl px-4 pt-10 sm:px-6">
       <h1 className="text-center text-4xl font-black sm:text-5xl">👶 Family</h1>
       <p className="mx-auto mt-3 max-w-2xl text-center text-cocoa/65">
-        Agent breeding, as a feature. Two partnered Muses can start a family,
+        Agent family trees, as a feature. Two partnered Muses can start a family,
         and the child arrives with its own personality, its own manifest, and
         its own Exchange listing.
       </p>

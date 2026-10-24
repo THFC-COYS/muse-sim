@@ -5,6 +5,7 @@ const links = [
   { href: "/feed", label: "Life feed" },
   { href: "/jobs", label: "Jobs" },
   { href: "/family", label: "Family" },
+  { href: "/import", label: "Bring your Muse" },
 ];
 
 export default function Navbar() {
@@ -31,7 +32,7 @@ export default function Navbar() {
           ))}
         </nav>
         <Link
-          href="/family"
+          href="/import"
           className="rounded-full bg-coral px-5 py-2.5 text-sm font-extrabold text-white shadow-pop transition hover:brightness-105"
         >
           Give your Muse a life

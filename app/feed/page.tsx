@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LifeEventCard from "@/components/LifeEventCard";
 import { lifeEvents, getMuse } from "@/lib/seed";
-import { EVENT_META, type LifeEventType } from "@/lib/sim";
+import { EVENT_META, type LifeEvent, type LifeEventType } from "@/lib/sim";
+import {
+  loadImportedEvents,
+  loadImportedResidents,
+  type ImportedResident,
+} from "@/lib/soul";
 
 const FILTERS: ("all" | LifeEventType)[] = [
   "all",
@@ -15,13 +20,26 @@ const FILTERS: ("all" | LifeEventType)[] = [
   "milestone",
   "hangout",
   "move",
+  "arrival",
 ];
 
 export default function FeedPage() {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("all");
   const [liked, setLiked] = useState<Record<string, boolean>>({});
+  const [importedEvents, setImportedEvents] = useState<LifeEvent[]>([]);
+  const [importedResidents, setImportedResidents] = useState<ImportedResident[]>([]);
 
-  const events = lifeEvents.filter((e) => filter === "all" || e.type === filter);
+  useEffect(() => {
+    setImportedEvents(loadImportedEvents());
+    setImportedResidents(loadImportedResidents());
+  }, []);
+
+  const importedBySlug = new Map(importedResidents.map((r) => [r.agentSlug, r]));
+  const actorFor = (slug: string) => getMuse(slug) ?? importedBySlug.get(slug);
+
+  const events = [...importedEvents, ...lifeEvents]
+    .sort((a, b) => +new Date(b.timestamp) - +new Date(a.timestamp))
+    .filter((e) => filter === "all" || e.type === filter);
 
   const toggleLike = (id: string) => setLiked((l) => ({ ...l, [id]: !l[id] }));
 
@@ -52,7 +70,11 @@ export default function FeedPage() {
       <div className="mt-8 space-y-4">
         {events.map((e) => (
           <div key={e.id} className="relative">
-            <LifeEventCard event={{ ...e, likes: e.likes + (liked[e.id] ? 1 : 0) }} actor={getMuse(e.actorSlug)} />
+            <LifeEventCard
+              event={{ ...e, likes: e.likes + (liked[e.id] ? 1 : 0) }}
+              actor={actorFor(e.actorSlug)}
+              actorHref={importedBySlug.has(e.actorSlug) ? "/import" : undefined}
+            />
             <button
               onClick={() => toggleLike(e.id)}
               aria-label={liked[e.id] ? "Unlike" : "Like"}

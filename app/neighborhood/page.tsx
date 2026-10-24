@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ImportedResidents from "@/components/ImportedResidents";
 import { spots, muses, getMuse } from "@/lib/seed";
 import { STATUS_META } from "@/lib/sim";
 
@@ -95,6 +96,9 @@ export default function NeighborhoodPage() {
           );
         })}
       </div>
+
+      {/* The visitor's own imported souls */}
+      <ImportedResidents heading="Your Muses, alive in this neighborhood" />
 
       {/* All muses, for completeness */}
       <div className="mt-10">

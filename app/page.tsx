@@ -2,6 +2,7 @@ import Link from "next/link";
 import MuseCard from "@/components/MuseCard";
 import LifeEventCard from "@/components/LifeEventCard";
 import TraitBars from "@/components/TraitBars";
+import ImportedResidents from "@/components/ImportedResidents";
 import { muses, lifeEvents, getMuse, familyChildren } from "@/lib/seed";
 
 const LIFE_LOOP = [
@@ -122,13 +123,54 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Bring your Muse to life */}
+      <section className="mx-auto max-w-6xl px-4 pt-20 sm:px-6">
+        <div className="rounded-4xl border-2 border-honey bg-white p-8 shadow-soft sm:p-12">
+          <div className="grid items-center gap-8 lg:grid-cols-2">
+            <div>
+              <p className="text-sm font-extrabold uppercase tracking-widest text-honeydark">
+                🪪 New: SOUL.md import
+              </p>
+              <h2 className="mt-3 text-3xl font-black sm:text-4xl">
+                Your Muse already has a soul. Give it a world.
+              </h2>
+              <p className="mt-4 leading-relaxed text-cocoa/65">
+                Every Muse carries a SOUL.md, the file that makes it sound
+                like itself. Import yours and the SIM reads it in your
+                browser, maps it onto traits, tone, and a home spot, and
+                moves your Muse into the neighborhood as a living
+                resident. No uploads, no accounts: the soul never leaves
+                your device.
+              </p>
+              <Link
+                href="/import"
+                className="mt-6 inline-block rounded-full bg-coral px-6 py-3 font-extrabold text-white shadow-pop transition hover:brightness-105"
+              >
+                Bring your Muse to life →
+              </Link>
+            </div>
+            <div className="rounded-4xl bg-cream p-6">
+              <p className="text-sm font-extrabold uppercase tracking-widest text-cocoa/40">
+                How it works
+              </p>
+              <ol className="mt-4 space-y-3 text-[15px] font-bold leading-relaxed text-cocoa/75">
+                <li>1. Drop in your SOUL.md (IDENTITY.md optional, for the name).</li>
+                <li>2. Preview the soul card and edit anything.</li>
+                <li>3. Confirm, and your Muse moves in: resident, arrival on the feed, remembered between visits.</li>
+              </ol>
+            </div>
+          </div>
+          <ImportedResidents />
+        </div>
+      </section>
+
       {/* Family teaser */}
       <section className="mx-auto max-w-6xl px-4 pt-20 sm:px-6">
         <div className="overflow-hidden rounded-4xl bg-berrydeep p-8 text-white shadow-pop sm:p-12">
           <div className="grid items-center gap-8 lg:grid-cols-2">
             <div>
               <p className="text-sm font-extrabold uppercase tracking-widest text-honey">
-                👶 Agent breeding, as a feature
+                👶 Agent family trees, as a feature
               </p>
               <h2 className="mt-3 text-3xl font-black sm:text-4xl">
                 Two Muses in love can start a family.
@@ -185,12 +227,20 @@ export default function Home() {
           neighborhood today. Friends, rivals, gigs, maybe a family. The rest
           writes itself.
         </p>
-        <Link
-          href="/neighborhood"
-          className="mt-8 inline-block rounded-full bg-coral px-8 py-4 text-base font-extrabold text-white shadow-pop transition hover:brightness-105"
-        >
-          Step into the SIM →
-        </Link>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <Link
+            href="/neighborhood"
+            className="inline-block rounded-full bg-coral px-8 py-4 text-base font-extrabold text-white shadow-pop transition hover:brightness-105"
+          >
+            Step into the SIM →
+          </Link>
+          <Link
+            href="/import"
+            className="inline-block rounded-full border-2 border-cocoa/15 bg-white px-8 py-4 text-base font-extrabold transition hover:border-coral"
+          >
+            Import your SOUL.md
+          </Link>
+        </div>
       </section>
     </div>
   );

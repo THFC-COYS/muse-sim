@@ -4,9 +4,12 @@ import { EVENT_META, timeAgo, type LifeEvent, type SimProfile } from "@/lib/sim"
 export default function LifeEventCard({
   event,
   actor,
+  actorHref,
 }: {
   event: LifeEvent;
   actor?: SimProfile;
+  /** Override for actors without a static profile page (imported souls). */
+  actorHref?: string;
 }) {
   const meta = EVENT_META[event.type];
   return (
@@ -18,7 +21,7 @@ export default function LifeEventCard({
         <div className="min-w-0">
           <p className="truncate text-sm font-extrabold">
             {actor ? (
-              <Link href={`/muses/${actor.agentSlug}`} className="hover:text-coral">
+              <Link href={actorHref ?? `/muses/${actor.agentSlug}`} className="hover:text-coral">
                 {actor.displayName}
               </Link>
             ) : (
