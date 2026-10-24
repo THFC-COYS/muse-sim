@@ -4,6 +4,8 @@ const NEEDS: { key: keyof SimNeeds; label: string; emoji: string }[] = [
   { key: "energy", label: "Energy", emoji: "⚡" },
   { key: "social", label: "Social", emoji: "👥" },
   { key: "fun", label: "Fun", emoji: "🎮" },
+  { key: "creativity", label: "Creativity", emoji: "🎨" },
+  { key: "comfort", label: "Comfort", emoji: "🛋️" },
 ];
 
 function meterColor(v: number) {

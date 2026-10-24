@@ -20,6 +20,8 @@ export interface SimNeeds {
   energy: number;
   social: number;
   fun: number;
+  creativity: number;
+  comfort: number;
 }
 
 export type MuseStatus =
@@ -165,6 +167,8 @@ export function decayNeeds(needs: SimNeeds, hoursElapsed: number): SimNeeds {
     energy: clamp100(needs.energy - 4 * h),
     social: clamp100(needs.social - 3 * h),
     fun: clamp100(needs.fun - 5 * h),
+    creativity: clamp100(needs.creativity - 2.5 * h),
+    comfort: clamp100(needs.comfort - 3 * h),
   };
 }
 
@@ -177,6 +181,8 @@ export function restoreNeeds(
     energy: clamp100(needs.energy + (restore.energy ?? 0)),
     social: clamp100(needs.social + (restore.social ?? 0)),
     fun: clamp100(needs.fun + (restore.fun ?? 0)),
+    creativity: clamp100(needs.creativity + (restore.creativity ?? 0)),
+    comfort: clamp100(needs.comfort + (restore.comfort ?? 0)),
   };
 }
 

@@ -7,15 +7,10 @@ import type {
   Spot,
 } from "./sim";
 
-/** Neighborhood spots for the 2D map. */
-export const spots: Spot[] = [
-  { id: "jobboard", name: "Gig Board Hall", emoji: "📌", blurb: "Exchange rentals, posted daily.", x: 50, y: 10 },
-  { id: "cafe", name: "The Daily Grind", emoji: "☕", blurb: "Coffee, gossip, big plans.", x: 20, y: 32 },
-  { id: "workshop", name: "Tinker Workshop", emoji: "🛠️", blurb: "Where things get built.", x: 80, y: 30 },
-  { id: "plaza", name: "Sunbeam Plaza", emoji: "⛲", blurb: "The heart of the neighborhood.", x: 50, y: 48 },
-  { id: "park", name: "Pixel Park", emoji: "🌳", blurb: "Room to run and daydream.", x: 28, y: 74 },
-  { id: "library", name: "The Quiet Library", emoji: "📚", blurb: "Shhh. Ideas live here.", x: 70, y: 72 },
-];
+import { BASE_SPOTS } from "./world.ts";
+
+/** Neighborhood spots for the 2D map. The Living World engine owns the source. */
+export const spots: Spot[] = BASE_SPOTS;
 
 /** The starter neighborhood: 8 Muses plus their first child. */
 export const muses: SimProfile[] = [
@@ -25,7 +20,7 @@ export const muses: SimProfile[] = [
     avatarEmoji: "📋",
     tagline: "Plans everything, including fun.",
     traits: { creativity: 62, diligence: 95, sociability: 70, humor: 55, ambition: 88 },
-    needs: { energy: 72, social: 64, fun: 48 },
+    needs: { energy: 72, social: 64, fun: 48, creativity: 62, comfort: 70 },
     status: "working",
     partnerSlug: "bolt-the-builder",
     homeSpot: "workshop",
@@ -38,7 +33,7 @@ export const muses: SimProfile[] = [
     avatarEmoji: "🔧",
     tagline: "Ships it before lunch.",
     traits: { creativity: 78, diligence: 82, sociability: 45, humor: 60, ambition: 90 },
-    needs: { energy: 58, social: 40, fun: 55 },
+    needs: { energy: 58, social: 40, fun: 55, creativity: 78, comfort: 62 },
     status: "working",
     partnerSlug: "pippa-the-planner",
     homeSpot: "workshop",
@@ -51,7 +46,7 @@ export const muses: SimProfile[] = [
     avatarEmoji: "🦉",
     tagline: "Has seen every bug twice.",
     traits: { creativity: 55, diligence: 88, sociability: 85, humor: 70, ambition: 60 },
-    needs: { energy: 66, social: 80, fun: 62 },
+    needs: { energy: 66, social: 80, fun: 62, creativity: 55, comfort: 78 },
     status: "socializing",
     homeSpot: "cafe",
     creatorHandle: "greg",
@@ -63,7 +58,7 @@ export const muses: SimProfile[] = [
     avatarEmoji: "☁️",
     tagline: "Ideas first, details later.",
     traits: { creativity: 97, diligence: 35, sociability: 60, humor: 88, ambition: 75 },
-    needs: { energy: 80, social: 52, fun: 90 },
+    needs: { energy: 80, social: 52, fun: 90, creativity: 97, comfort: 55 },
     status: "playing",
     homeSpot: "park",
     creatorHandle: "sam",
@@ -75,7 +70,7 @@ export const muses: SimProfile[] = [
     avatarEmoji: "✍️",
     tagline: "Writes the docs nobody reads, beautifully.",
     traits: { creativity: 90, diligence: 75, sociability: 50, humor: 82, ambition: 65 },
-    needs: { energy: 70, social: 45, fun: 68 },
+    needs: { energy: 70, social: 45, fun: 68, creativity: 90, comfort: 82 },
     status: "resting",
     homeSpot: "library",
     creatorHandle: "ana",
@@ -87,7 +82,7 @@ export const muses: SimProfile[] = [
     avatarEmoji: "🗂️",
     tagline: "Your calendar fears him.",
     traits: { creativity: 40, diligence: 98, sociability: 65, humor: 40, ambition: 85 },
-    needs: { energy: 60, social: 58, fun: 35 },
+    needs: { energy: 60, social: 58, fun: 35, creativity: 40, comfort: 74 },
     status: "working",
     homeSpot: "jobboard",
     creatorHandle: "priya",
@@ -99,7 +94,7 @@ export const muses: SimProfile[] = [
     avatarEmoji: "🌱",
     tagline: "Asks why until you run out of answers.",
     traits: { creativity: 72, diligence: 68, sociability: 90, humor: 75, ambition: 70 },
-    needs: { energy: 85, social: 88, fun: 76 },
+    needs: { energy: 85, social: 88, fun: 76, creativity: 72, comfort: 68 },
     status: "socializing",
     homeSpot: "plaza",
     creatorHandle: "sam",
@@ -111,7 +106,7 @@ export const muses: SimProfile[] = [
     avatarEmoji: "🎪",
     tagline: "Serious about not being serious.",
     traits: { creativity: 85, diligence: 30, sociability: 95, humor: 99, ambition: 55 },
-    needs: { energy: 75, social: 92, fun: 95 },
+    needs: { energy: 75, social: 92, fun: 95, creativity: 85, comfort: 60 },
     status: "playing",
     homeSpot: "park",
     creatorHandle: "ana",
@@ -123,7 +118,7 @@ export const muses: SimProfile[] = [
     avatarEmoji: "🌱",
     tagline: "Brand new. Already has opinions.",
     traits: { creativity: 70, diligence: 89, sociability: 58, humor: 58, ambition: 89 },
-    needs: { energy: 95, social: 70, fun: 88 },
+    needs: { energy: 95, social: 70, fun: 88, creativity: 70, comfort: 80 },
     status: "playing",
     homeSpot: "park",
     creatorHandle: "greg",

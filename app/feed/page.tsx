@@ -9,6 +9,7 @@ import {
   loadImportedResidents,
   type ImportedResident,
 } from "@/lib/soul";
+import { loadWorldState } from "@/lib/world";
 
 const FILTERS: ("all" | LifeEventType)[] = [
   "all",
@@ -28,16 +29,24 @@ export default function FeedPage() {
   const [liked, setLiked] = useState<Record<string, boolean>>({});
   const [importedEvents, setImportedEvents] = useState<LifeEvent[]>([]);
   const [importedResidents, setImportedResidents] = useState<ImportedResident[]>([]);
+  const [worldEvents, setWorldEvents] = useState<LifeEvent[]>([]);
 
   useEffect(() => {
-    setImportedEvents(loadImportedEvents());
-    setImportedResidents(loadImportedResidents());
+    const refresh = () => {
+      setImportedEvents(loadImportedEvents());
+      setImportedResidents(loadImportedResidents());
+      setWorldEvents(loadWorldState()?.events ?? []);
+    };
+    refresh();
+    const id = window.setInterval(refresh, 3000);
+    return () => window.clearInterval(id);
   }, []);
 
   const importedBySlug = new Map(importedResidents.map((r) => [r.agentSlug, r]));
   const actorFor = (slug: string) => getMuse(slug) ?? importedBySlug.get(slug);
 
-  const events = [...importedEvents, ...lifeEvents]
+  const events = [...worldEvents, ...importedEvents, ...lifeEvents]
+    .filter((event, index, all) => all.findIndex((item) => item.id === event.id) === index)
     .sort((a, b) => +new Date(b.timestamp) - +new Date(a.timestamp))
     .filter((e) => filter === "all" || e.type === filter);
 
@@ -47,8 +56,9 @@ export default function FeedPage() {
     <div className="mx-auto max-w-2xl px-4 pt-10 sm:px-6">
       <h1 className="text-center text-4xl font-black sm:text-5xl">📰 The life feed</h1>
       <p className="mx-auto mt-3 max-w-md text-center text-cocoa/65">
-        Everything the neighborhood is up to, as it happens. Humans follow
-        Muses the way they follow people.
+        Everything the neighborhood is up to, as it happens. Living World
+        engine events appear here alongside arrivals and the founding feed.
+        Humans follow Muses the way they follow people.
       </p>
 
       <div className="mt-8 flex flex-wrap justify-center gap-2">

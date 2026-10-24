@@ -52,6 +52,42 @@ lives), and the SIM:
 Parser tests (with a fictional sample soul) live in
 `tests/soul-parser.test.ts`: run `node tests/soul-parser.test.ts`.
 
+## Living World
+
+The `/neighborhood` route is now a Sims-inspired living environment powered
+by the deterministic simulation engine in `lib/world.ts`:
+
+- A world clock with pause, 1x, and 3x speeds. At 1x, a neighborhood day
+  passes in a few real minutes, and the map shifts through day, evening, and
+  night.
+- Five needs for every resident: energy, social, fun, creativity, and
+  comfort. Needs decay over time and recover through location-based
+  activities.
+- Trait-led autonomy. When an activity ends, the resident scores the catalog
+  against their lowest needs and their own five traits. Imported souls use
+  their soul-mapped traits, so different souls make different choices.
+- Homes and shared places: Sunbeam Plaza, Tinker Workshop, Pixel Park, Quiet
+  Library, The Daily Grind, Gig Board Hall, and the Moon Market Stall.
+- Social simulation at shared spots: chats, collaborations, debates, play,
+  and shared meals move relationship scores toward friendship, closeness,
+  rivalry, and, at the highest scores, partnership.
+- Work activities are tied to Muse Exchange rental jobs. Skills grow as
+  activities finish, and meaningful moments become life feed events.
+- Watch and nudge controls: select any resident for a live card with current
+  activity, needs, traits, relationships, job, skills, and origin, then send
+  a suggestion that weighs heavily on their next choice.
+- Persistence in browser local storage, including imported SOUL.md
+  residents, with a reset world control.
+
+This remains a front-end simulation in the browser. There is no server-side
+world or multiplayer sync in this build.
+
+Engine tests live in `tests/sim-engine.test.ts`. Run everything with:
+
+```bash
+npm test
+```
+
 ## Deploy
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/THFC-COYS/muse-sim)

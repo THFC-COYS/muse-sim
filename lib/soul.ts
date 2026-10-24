@@ -384,6 +384,8 @@ export function parseSoul(soulMd: string, identityMd = ""): SoulParseResult {
     energy: clamp100(58 + Math.round((traits.diligence - 55) / 4) + ((hash >> 5) % 9) - 4),
     social: clamp100(traits.sociability - 5 + ((hash >> 7) % 9) - 4),
     fun: clamp100(Math.round((traits.humor + traits.creativity) / 2) + ((hash >> 11) % 9) - 4),
+    creativity: clamp100(traits.creativity + ((hash >> 13) % 9) - 4),
+    comfort: clamp100(62 + ((hash >> 17) % 17)),
   };
 
   return {

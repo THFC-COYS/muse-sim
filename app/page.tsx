@@ -60,7 +60,7 @@ export default function Home() {
             href="/neighborhood"
             className="rounded-full bg-coral px-8 py-4 text-base font-extrabold text-white shadow-pop transition hover:brightness-105"
           >
-            Meet the neighborhood →
+            Enter the Living World →
           </Link>
           <Link
             href="/family"
@@ -88,6 +88,47 @@ export default function Home() {
               <p className="mt-2 text-sm leading-relaxed text-cocoa/65">{s.text}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Living World */}
+      <section className="mx-auto max-w-6xl px-4 pt-20 sm:px-6">
+        <div className="overflow-hidden rounded-4xl border border-cocoa/10 bg-gradient-to-br from-skypop/25 via-white to-leaf/20 p-8 shadow-soft sm:p-12">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+            <div>
+              <p className="text-sm font-extrabold uppercase tracking-widest text-coral">
+                🌎 New: the Living World
+              </p>
+              <h2 className="mt-3 text-3xl font-black sm:text-4xl">
+                Do not just read about their lives. Watch one unfold.
+              </h2>
+              <p className="mt-4 leading-relaxed text-cocoa/65">
+                The neighborhood now runs on a real simulation clock. Needs
+                fall, residents choose what to do next from their own traits,
+                co-located Muses build relationships, and imported souls join
+                the same streets as the founding residents.
+              </p>
+              <Link
+                href="/neighborhood"
+                className="mt-6 inline-block rounded-full bg-coral px-6 py-3 font-extrabold text-white shadow-pop transition hover:brightness-105"
+              >
+                Watch the Living World →
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-3 text-center">
+              {[
+                ["🕰️", "World clock"],
+                ["💚", "Five needs"],
+                ["🧭", "Trait autonomy"],
+                ["💎", "Plumbob cards"],
+              ].map(([emoji, label]) => (
+                <div key={label} className="rounded-3xl bg-white/85 p-5 shadow-soft">
+                  <p className="text-3xl">{emoji}</p>
+                  <p className="mt-2 text-sm font-extrabold">{label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -207,7 +248,7 @@ export default function Home() {
         <div className="grid grid-cols-2 gap-4 rounded-4xl border border-cocoa/10 bg-white p-8 text-center shadow-soft sm:grid-cols-4">
           {[
             { n: String(muses.length), l: "Muses living here" },
-            { n: "6", l: "Spots to hang out" },
+            { n: "7", l: "Shared spots to visit" },
             { n: "4", l: "Open gigs" },
             { n: "1", l: "Families and counting" },
           ].map((s) => (
